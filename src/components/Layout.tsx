@@ -10,10 +10,9 @@ import {
 import { Outlet, NavLink, Link, useLocation } from "react-router-dom"
 
 // ── Thème appliqué au niveau module (avant React mount) ─────
-// Évite le flash ET le warning "cascading renders"
 if (typeof window !== "undefined") {
   try {
-    const stored     = localStorage.getItem("greenbuild-theme")
+    const stored      = localStorage.getItem("greenbuild-theme")
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
     document.documentElement.classList.toggle(
       "dark",
@@ -30,11 +29,10 @@ interface NavPortail {
   desc:  string
 }
 
-
-
 // ── Données navigation ───────────────────────────────────────
+// ✅ CORRECTION : paths alignés avec les routes dans App.tsx
 const NAV_PORTAILS: NavPortail[] = [
-  { path: "/proprietaire", label: "SoumissionForm", icon: "🏠", desc: "Soumettre un audit"   },
+  { path: "/proprietaire", label: "Propriétaire", icon: "🏠", desc: "Soumettre un audit"   },
   { path: "/technicien",   label: "Technicien",   icon: "🔧", desc: "Saisir les mesures"   },
   { path: "/auditeur",     label: "Auditeur",     icon: "✅", desc: "Valider les dossiers" },
   { path: "/admin",        label: "Admin AMEE",   icon: "🗺️", desc: "Vue nationale"        },
@@ -171,6 +169,7 @@ export default function Layout() {
             {/* Actions desktop */}
             <div className="hidden md:flex items-center gap-2">
 
+              {/* ✅ /verifier est maintenant une route valide dans App.tsx */}
               <Link
                 to="/verifier"
                 className="text-xs font-medium text-stone-500 dark:text-stone-400 hover:text-green-600 dark:hover:text-green-400 border border-stone-200 dark:border-stone-700 px-3 py-1.5 rounded-lg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-green-500"
@@ -188,6 +187,7 @@ export default function Layout() {
                 <span aria-hidden="true">{darkMode ? "☀️" : "🌙"}</span>
               </button>
 
+              {/* ✅ Bouton Commencer → /proprietaire (route existante) */}
               <Link
                 to="/proprietaire"
                 className="text-sm font-semibold text-white bg-green-600 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-lg transition-colors shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-1"
@@ -297,16 +297,14 @@ export default function Layout() {
             Green<span className="text-green-600">Build</span>
           </Link>
 
-          
-
           <div className="flex items-center gap-3 text-xs text-stone-400 dark:text-stone-500">
             <span className="flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               Netlify CI/CD
             </span>
             <span>·</span>
-            
-              <a href="https://github.com"
+            <a
+              href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-stone-700 dark:hover:text-stone-200 transition-colors"

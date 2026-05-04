@@ -25,12 +25,16 @@ export default function App() {
 
         {/* ── Avec navbar (Layout) ──────────────────────── */}
         <Route element={<Layout />}>
+          {/* ✅ /proprietaire pointe vers SoumissionForm (correspond au Layout nav) */}
+          <Route path="/proprietaire" element={<SoumissionForm />} />
           <Route path="/soumettre"    element={<SoumissionForm />} />
           <Route path="/dashboard"    element={<Dashboard />} />
           <Route path="/technicien"   element={<TechnicienPage />} />
           <Route path="/auditeur"     element={<AuditeurPage />} />
           <Route path="/admin"        element={<AdminPage />} />
           <Route path="/analyste"     element={<AnalystePage />} />
+          {/* ✅ /verifier — page vérification certificat avec Layout */}
+          <Route path="/verifier"     element={<Dashboard />} />
         </Route>
 
         {/* ── Fallback ──────────────────────────────────── */}
