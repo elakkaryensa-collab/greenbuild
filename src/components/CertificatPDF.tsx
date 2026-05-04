@@ -1,46 +1,67 @@
-// ─────────────────────────────────────────────────────────────
-// src/components/CertificatPDF.tsx
-// GreenBuild v3.0 — Certificat A4 officiel + QR code
-// CDC : "CSS @media print, window.print(), qrcode.react"
-// ─────────────────────────────────────────────────────────────
-
-import { useRef }              from "react";
-import QRCode                  from "qrcode.react";
-import { useDossierStore }     from "../store/dossierStore";
-import { COULEURS_CLASSES,
-         LABELS_CLASSES }      from "../types/Score";
-
-// ── Numéro de certificat unique ───────────────────────────────
+// CertificatPDF.tsx — Classe A, score 92/100
+import { useRef } from "react";
+import { useDossierStore } from "../store/dossierStore";
+import { LABELS_CLASSES } from "../types/Score";
 
 function genererNumeroCertificat(batimentId: string): string {
   const annee = new Date().getFullYear();
-  const hash  = batimentId.slice(0, 6).toUpperCase();
-  const seq   = Math.floor(Math.random() * 9000 + 1000);
+  const hash = batimentId.slice(0, 6).toUpperCase();
+  const seq = Math.floor(Math.random() * 9000 + 1000);
   return `GB-${annee}-${hash}-${seq}`;
 }
 
-// ── Composant ─────────────────────────────────────────────────
+// ─── Score forcé à A pour la démo ───────────────────────────
+const SCORE_DEMO = {
+  classe: "A" as const,
+  valeur: 92,
+  baseCalcul: "210 m² · Zone 1",
+  consommationTheoriqueAnnuelle: 8400,
+  consommationReelleMoyenne: 620,
+  statutComparaison: "sous le seuil",
+};
+
+const BATIMENT_DEMO = {
+  id: "a3f9e1",
+  type: "Résidentiel",
+  surfaceM2: 210,
+  isolation: "Excellente",
+  vitrage: "Triple vitrage",
+  zoneClimatique: "Zone 1 — Littorale",
+  region: "Marrakesh-Safi",
+  ville: "Safi",
+};
 
 export default function CertificatPDF() {
-  const batiment      = useDossierStore((s) => s.batiment);
-  const score         = useDossierStore((s) => s.score);
-  const certifRef     = useRef<HTMLDivElement>(null);
+  const certifRef = useRef<HTMLDivElement>(null);
 
-  if (!batiment || !score) return null;
+  // Utilise le store si disponible, sinon la démo
+  const batimentStore = useDossierStore((s) => s.batiment);
+  const scoreStore = useDossierStore((s) => s.score);
+  const batiment = batimentStore ?? BATIMENT_DEMO;
+  const score = scoreStore ?? SCORE_DEMO;
 
-  const numeroCertif  = genererNumeroCertificat(batiment.id);
-  const dateEmission  = new Date().toLocaleDateString("fr-MA", {
+  const numeroCertif = genererNumeroCertificat(batiment.id);
+  const dateEmission = new Date().toLocaleDateString("fr-MA", {
     day: "2-digit", month: "long", year: "numeric",
   });
   const urlVerif = `https://greenbuild.netlify.app/verify/${numeroCertif}`;
-  const couleurs = COULEURS_CLASSES[score.classe];
-  const label    = LABELS_CLASSES[score.classe];
+  const CLASSES = ["A","B","C","D","E","F","G"] as const;
 
+  const COULEURS: Record<string, { bg: string; text: string; border: string; badge: string }> = {
+    A: { bg: "#e8f5ee", text: "#0f5e2a", border: "#1a9950", badge: "#1a9950" },
+    B: { bg: "#eef7e8", text: "#2a6e10", border: "#4aa830", badge: "#4aa830" },
+    C: { bg: "#f5fbe8", text: "#4a6e10", border: "#8ac830", badge: "#8ac830" },
+    D: { bg: "#fefce8", text: "#6e5810", border: "#d4b030", badge: "#d4b030" },
+    E: { bg: "#fef3e8", text: "#6e3e10", border: "#d47030", badge: "#d47030" },
+    F: { bg: "#feeae8", text: "#6e1e10", border: "#d44030", badge: "#d44030" },
+    G: { bg: "#fde8e8", text: "#6e0810", border: "#c42020", badge: "#c42020" },
+  };
+
+  const c = COULEURS[score.classe];
   const imprimer = () => window.print();
 
   return (
     <>
-      {/* ── Styles @media print ──────────────────────────────── */}
       <style>{`
         @media print {
           body > *:not(#certificat-print-root) { display: none !important; }
@@ -48,163 +69,129 @@ export default function CertificatPDF() {
           .no-print { display: none !important; }
           @page { size: A4 portrait; margin: 0; }
         }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
       `}</style>
 
-      {/* ── Bouton impression ────────────────────────────────── */}
+      {/* Bouton impression */}
       <button
         onClick={imprimer}
         className="no-print flex items-center gap-2 px-5 py-2.5
-                   bg-green-600 hover:bg-green-700 text-white
+                   bg-green-700 hover:bg-green-800 text-white
                    text-sm font-semibold rounded-xl transition-colors mb-6"
       >
         🖨️ Télécharger / Imprimer le certificat
       </button>
 
-      {/* ── Certificat A4 ────────────────────────────────────── */}
       <div id="certificat-print-root">
         <div
           ref={certifRef}
-          className="w-full max-w-2xl mx-auto bg-white
-                     border-2 border-stone-200 rounded-2xl overflow-hidden
-                     print:rounded-none print:border-0 print:max-w-full"
-          style={{ fontFamily: "'Georgia', serif" }}
+          style={{ fontFamily: "'Source Sans 3', sans-serif", color: "#1a1a1a", maxWidth: 660, margin: "0 auto", border: "1px solid #d4d0c8", background: "#fff" }}
+          className="print:max-w-full print:border-0"
         >
-          {/* ── En-tête ──────────────────────────────────────── */}
-          <div className="bg-green-700 text-white px-10 py-8 text-center">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <span className="text-3xl">🌿</span>
-              <div>
-                <h1 className="text-2xl font-bold tracking-wide">GreenBuild</h1>
-                <p className="text-green-200 text-xs tracking-widest uppercase">
-                  Plateforme de Certification Énergétique
-                </p>
-              </div>
-            </div>
-            <div className="border-t border-green-600 pt-4 mt-4">
-              <h2 className="text-lg font-semibold tracking-wide">
-                CERTIFICAT DE PERFORMANCE ÉNERGÉTIQUE
-              </h2>
-              <p className="text-green-300 text-xs mt-1">
-                Conforme à la Loi 47-09 relative à l'efficacité énergétique
+
+          {/* En-tête */}
+          <div style={{ background: "#0f4c2a", color: "#fff", padding: "28px 40px 22px", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+            <div>
+              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, margin: "0 0 4px", color: "#fff" }}>GreenBuild</h1>
+              <p style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#7dbf97", margin: 0 }}>
+                Plateforme de Certification Énergétique
               </p>
             </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontSize: 11, color: "#7dbf97", letterSpacing: 1 }}>N° {numeroCertif}</div>
+              <div style={{ fontSize: 11, color: "#a8d4b8", marginTop: 3 }}>Émis le {dateEmission}</div>
+            </div>
           </div>
+          <div style={{ background: "#1a6638", height: 3 }} />
 
-          {/* ── Corps ────────────────────────────────────────── */}
-          <div className="px-10 py-8">
+          {/* Corps */}
+          <div style={{ padding: "32px 40px" }}>
 
-            {/* Score principal */}
-            <div className="flex items-center justify-center gap-8 mb-8">
-              <div className={`
-                w-32 h-32 rounded-full border-4 ${couleurs.border} ${couleurs.bg}
-                flex flex-col items-center justify-center shadow-md
-              `}>
-                <span className={`text-5xl font-extrabold ${couleurs.text}`}>
-                  {score.classe}
-                </span>
-                <span className={`text-sm font-semibold ${couleurs.text} opacity-80`}>
-                  {score.valeur}/100
-                </span>
-              </div>
-
+            {/* Titre + Badge */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 26, borderBottom: "0.5px solid #e8e4dc", paddingBottom: 20 }}>
               <div>
-                <p className={`text-2xl font-bold ${couleurs.text}`}>{label}</p>
-                <p className="text-sm text-stone-500 mt-1">
-                  Score calculé sur {score.baseCalcul}
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, fontWeight: 400, color: "#2a2a2a", margin: "0 0 4px", letterSpacing: 0.5 }}>
+                  Certificat de Performance Énergétique
+                </h2>
+                <p style={{ fontSize: 11, color: "#888", margin: 0, letterSpacing: 1, textTransform: "uppercase" }}>
+                  Conforme à la Loi 47-09 — Efficacité Énergétique
                 </p>
-                <div className="flex gap-1 mt-2">
-                  {(["A","B","C","D","E","F","G"] as const).map((cls) => {
-                    const c = COULEURS_CLASSES[cls];
-                    return (
-                      <div
-                        key={cls}
-                        className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold
-                          ${cls === score.classe ? `${c.bg} ${c.text} border-2 ${c.border}` : "bg-stone-100 text-stone-400"}`}
-                      >{cls}</div>
-                    );
-                  })}
-                </div>
               </div>
+              <div style={{ width: 70, height: 70, borderRadius: "50%", background: c.bg, border: `3px solid ${c.border}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 30, fontWeight: 700, color: c.text, lineHeight: 1 }}>{score.classe}</span>
+                <span style={{ fontSize: 10, color: c.badge, fontWeight: 600 }}>{score.valeur}/100</span>
+              </div>
+            </div>
+
+            {/* Barre des classes */}
+            <div style={{ display: "flex", gap: 4, alignItems: "center", marginBottom: 22 }}>
+              <span style={{ fontSize: 11, color: "#888", marginRight: 6 }}>Classe :</span>
+              {CLASSES.map((cls) => (
+                <div
+                  key={cls}
+                  style={{
+                    width: 30, height: 22,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 11, fontWeight: 600, borderRadius: 1,
+                    background: cls === score.classe ? COULEURS[cls].badge : "#f0f0eb",
+                    color: cls === score.classe ? "#fff" : "#bbb",
+                    border: cls === score.classe ? `2px solid ${COULEURS[cls].text}` : "none",
+                  }}
+                >{cls}</div>
+              ))}
+              <span style={{ fontSize: 11, color: c.badge, fontWeight: 600, marginLeft: 8 }}>
+                {LABELS_CLASSES[score.classe] ?? "Très haute performance"}
+              </span>
             </div>
 
             {/* Informations bâtiment */}
-            <div className="border border-stone-200 rounded-xl p-5 mb-6">
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">
-                Informations du Bâtiment
-              </h3>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                {[
-                  ["Type",           batiment.type],
-                  ["Surface",        `${batiment.surfaceM2} m²`],
-                  ["Isolation",      batiment.isolation],
-                  ["Vitrage",        batiment.vitrage],
-                  ["Zone RTCM",      batiment.zoneClimatique],
-                  ["Région",         batiment.region],
-                  ["Ville",          batiment.ville],
-                  ["Consommation",   `${score.consommationReelleMoyenne} kWh/mois moy.`],
-                ].map(([k, v]) => (
-                  <div key={k} className="flex gap-2 text-sm">
-                    <span className="text-stone-400 w-24 flex-shrink-0">{k} :</span>
-                    <span className="text-stone-800 font-medium capitalize">{v}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Données énergétiques */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", border: "0.5px solid #ddd8cc", borderRadius: 2, overflow: "hidden", marginBottom: 22 }}>
               {[
-                { label: "Consom. théorique",  valeur: `${score.consommationTheoriqueAnnuelle} kWh/an` },
-                { label: "Consom. réelle moy.", valeur: `${score.consommationReelleMoyenne} kWh/mois` },
-                { label: "Statut",              valeur: score.statutComparaison },
-              ].map(({ label, valeur }) => (
-                <div key={label} className="bg-stone-50 rounded-lg p-3 text-center">
-                  <p className="text-xs text-stone-400 mb-1">{label}</p>
-                  <p className="text-sm font-bold text-stone-800 capitalize">{valeur}</p>
+                ["Type", batiment.type],
+                ["Surface", `${batiment.surfaceM2} m²`],
+                ["Isolation", batiment.isolation],
+                ["Vitrage", batiment.vitrage],
+                ["Zone RTCM", batiment.zoneClimatique],
+                ["Région", batiment.region],
+              ].map(([k, v], i) => (
+                <div key={k} style={{ padding: "10px 14px", borderBottom: i < 4 ? "0.5px solid #ddd8cc" : "none", borderRight: i % 2 === 0 ? "0.5px solid #ddd8cc" : "none" }}>
+                  <div style={{ fontSize: 10, color: "#999", textTransform: "uppercase", letterSpacing: 1, marginBottom: 2 }}>{k}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "#1a1a1a" }}>{v}</div>
                 </div>
               ))}
             </div>
 
-            {/* QR Code + numéro */}
-            <div className="flex items-center gap-6 border border-stone-200 rounded-xl p-5">
-              <QRCode
-                value={urlVerif}
-                size={90}
-                bgColor="#ffffff"
-                fgColor="#166534"
-                level="M"
-              />
-              <div className="flex-1">
-                <p className="text-xs text-stone-400 uppercase tracking-wider mb-1">
-                  Numéro de certificat
-                </p>
-                <p className="text-base font-mono font-bold text-stone-900">
-                  {numeroCertif}
-                </p>
-                <p className="text-xs text-stone-400 mt-1">
-                  Date d'émission : {dateEmission}
-                </p>
-                <p className="text-xs text-stone-400 mt-0.5">
-                  Valable 2 ans — Renouvellement recommandé après travaux
-                </p>
-                <p className="text-xs text-green-600 mt-1 font-mono break-all">
-                  {urlVerif}
-                </p>
+            {/* Données énergétiques */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 22 }}>
+              {[
+                ["Consom. théorique", `${score.consommationTheoriqueAnnuelle} kWh/an`],
+                ["Consom. réelle moy.", `${score.consommationReelleMoyenne} kWh/mois`],
+                ["Statut", score.statutComparaison],
+              ].map(([lbl, val]) => (
+                <div key={lbl} style={{ background: "#f6f4ef", padding: 12, textAlign: "center", borderRadius: 2 }}>
+                  <div style={{ fontSize: 10, color: "#888", letterSpacing: 1, textTransform: "uppercase", marginBottom: 4 }}>{lbl}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "#1a1a1a", textTransform: "capitalize" }}>{val}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* QR + méta */}
+            <div style={{ display: "flex", gap: 20, alignItems: "flex-start", borderTop: "0.5px solid #e8e4dc", paddingTop: 22 }}>
+              {/* QR simulé — remplace par <QRCode value={urlVerif} size={80} fgColor="#0f4c2a" /> */}
+              <div style={{ width: 80, height: 80, flexShrink: 0, background: "#f0ede6", border: "0.5px solid #ccc9bf", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: "#888", textAlign: "center" }}>
+                QR Code
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, color: "#999", textTransform: "uppercase", letterSpacing: 1, marginBottom: 2 }}>Numéro de certificat</div>
+                <div style={{ fontSize: 12, fontFamily: "monospace", color: "#0f4c2a", fontWeight: 600, marginBottom: 8 }}>{numeroCertif}</div>
+                <div style={{ fontSize: 10, color: "#1a9950", fontFamily: "monospace", wordBreak: "break-all" }}>{urlVerif}</div>
+                <div style={{ fontSize: 11, color: "#888", marginTop: 6 }}>Valable 2 ans · Renouvellement recommandé après travaux</div>
               </div>
             </div>
           </div>
 
-          {/* ── Pied de page ──────────────────────────────────── */}
-          <div className="bg-stone-50 border-t border-stone-200 px-10 py-4 text-center">
-            <p className="text-xs text-stone-400">
-              Émis par <strong className="text-stone-600">GreenBuild v3.0</strong> —
-              Agence Marocaine pour l'Efficacité Énergétique (AMEE) —
-              Conforme Loi 47-09
-            </p>
-            <p className="text-xs text-stone-300 mt-1">
-              ENSA Berrechid · Module Technologies Web · Pr. Ilhame Ait Lbachir
-            </p>
-          </div>
+         
+
         </div>
       </div>
     </>

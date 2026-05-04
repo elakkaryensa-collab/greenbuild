@@ -32,7 +32,7 @@ interface NavPortail {
 
 // ── Données navigation ───────────────────────────────────────
 const NAV_PORTAILS: NavPortail[] = [
-  { path: "/proprietaire", label: "Propriétaire", icon: "🏠", desc: "Soumettre un audit"   },
+  { path: "/proprietaire", label: "SoumissionForm", icon: "🏠", desc: "Soumettre un audit"   },
   { path: "/technicien",   label: "Technicien",   icon: "🔧", desc: "Saisir les mesures"   },
   { path: "/auditeur",     label: "Auditeur",     icon: "✅", desc: "Valider les dossiers" },
   { path: "/admin",        label: "Admin AMEE",   icon: "🗺️", desc: "Vue nationale"        },
@@ -295,13 +295,7 @@ export default function Layout() {
             Green<span className="text-green-600">Build</span>
           </Link>
 
-          <div className="flex items-center gap-4 text-xs text-stone-400 dark:text-stone-500">
-            <span>ENSA Berrechid</span>
-            <span className="w-px h-3 bg-stone-200 dark:bg-stone-700" />
-            <span>Module Technologies Web</span>
-            <span className="w-px h-3 bg-stone-200 dark:bg-stone-700" />
-            <span>Pr. Ilhame Ait Lbachir</span>
-          </div>
+          
 
           <div className="flex items-center gap-3 text-xs text-stone-400 dark:text-stone-500">
             <span className="flex items-center gap-1">
