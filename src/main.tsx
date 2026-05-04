@@ -8,7 +8,7 @@ import { createRoot }  from "react-dom/client";
 import App             from "./App";
 import "./index.css";
 
-// Initialiser le thème avant le premier rendu (évite le flash)
+// Initialiser  le thème avant le premier rendu (évite le flash)
 const saved    = localStorage.getItem("greenbuild-theme");
 const prefers  = window.matchMedia("(prefers-color-scheme: dark)").matches;
 if (saved === "dark" || (!saved && prefers)) {

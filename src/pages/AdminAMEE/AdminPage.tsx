@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 // src/pages/AdminAMEE/AdminPage.tsx
-// GreenBuild v3.0 — Admin AMEE : carte + stats (Étape 12)
+// GreenmmmBuild v3.0 — Admin AMEE : carte + stats (Étape 12)
 // CDC : "12 régions colorées, gestion utilisateurs, CSV"
 // Note : Leaflet est chargé dynamiquement via CDN dans index.html
 // ─────────────────────────────────────────────────────────────

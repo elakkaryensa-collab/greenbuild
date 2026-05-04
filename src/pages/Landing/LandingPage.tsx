@@ -260,6 +260,7 @@ export default function LandingPage() {
             >
               {tag}
             </span>
+            
           ))}
         </div>
       </section>

@@ -183,6 +183,8 @@ export default function EntreprisesPartenaires({
     );
   }
 
+  
+
   return (
     <div>
       {titre && (

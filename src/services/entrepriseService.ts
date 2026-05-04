@@ -7,7 +7,7 @@
 //   getEntreprisesParProbleme(specialite, region)
 //   → filtre par specialiteEntreprise === specialite
 //   → trie par noteClients décroissant
-//   → retourne les 3 premières certifiées
+//   → retourne les 3 premières certifiées...
 // ─────────────────────────────────────────────────────────────
 
 import type { Entreprise }           from "../types/Entreprise";

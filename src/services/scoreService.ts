@@ -5,7 +5,7 @@
 //
 // RÈGLE ABSOLUE : baseCalcul est TOUJOURS "12mois"
 // Le score est calculé sur la MOYENNE des 12 factures ONEE,
-// jamais sur un seul mois isolé.
+// jamais sur un seul mois isolé...
 // ─────────────────────────────────────────────────────────────
 
 import type { Batiment }                        from "../types/Batiment";

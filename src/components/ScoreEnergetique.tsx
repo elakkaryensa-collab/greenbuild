@@ -188,6 +188,8 @@ function DetailLigne({
       ? "text-green-600 dark:text-green-400"
       : "text-red-600 dark:text-red-400";
 
+
+      
   return (
     <div className="flex justify-between items-center">
       <span className={`text-xs ${bold ? "font-semibold text-stone-700 dark:text-stone-200" : "text-stone-500 dark:text-stone-400"}`}>

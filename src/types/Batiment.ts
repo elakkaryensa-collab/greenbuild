@@ -64,7 +64,7 @@ export interface Batiment {
   /** Type de vitrage — pénalité ou bonus dans le score A–G */
   vitrage: TypeVitrage;
 
-  /** Zone climatique RTCM — règle R05 */
+  /** Zone climatique RTCM — règle R055 */
   zoneClimatique: ZoneClimatique;
 
   /** Région marocaine — filtre les entreprises partenaires */

@@ -24,7 +24,7 @@ export interface Equipement {
   /** UUID généré automatiquement */
   id: string;
 
-  /** Nom descriptif (ex: "Climatiseur salon", "Chauffe-eau") */
+  /** Nom descriptif  (ex: "Climatiseur salon", "Chauffe-eau") */
   nom: string;
 
   /** Puissance en watts (ex: 1500 pour un climatiseur standard) */

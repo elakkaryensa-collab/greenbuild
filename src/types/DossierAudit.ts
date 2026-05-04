@@ -29,7 +29,7 @@ export type StatutDossier =
   | "certifie";
 
 /**
- * Interface principale du dossier d'audit énergétique
+ * Interface principale du dossier  d'audit énergétique
  * C'est l'objet central stocké dans dossierStore.ts (Zustand)
  * Il regroupe tous les types définis dans les étapes précédentes
  *

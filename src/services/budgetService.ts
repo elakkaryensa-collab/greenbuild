@@ -62,7 +62,7 @@ function evaluerDifficulte(
 }
 
 /**
- * Génère le texte de l'action recommandée.
+ * Génère le texte de l'action recommandée...
  */
 function genererTexteAction(
   nom: string,

@@ -111,6 +111,8 @@ describe("formatROI", () => {
     expect(formatROI(Infinity)).toBe("Non rentable");
   });
 
+
+  
   it("formate les années entières sans mois", () => {
     expect(formatROI(5)).toBe("5 ans");
   });

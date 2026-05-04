@@ -48,7 +48,7 @@ export default function CertificatPDF() {
   const CLASSES = ["A","B","C","D","E","F","G"] as const;
 
   const COULEURS: Record<string, { bg: string; text: string; border: string; badge: string }> = {
-    A: { bg: "#e8f5ee", text: "#0f5e2a", border: "#1a9950", badge: "#1a9950" },
+    A: { bg: "#e8f5ee", text: "#0f5e2a", border: "#1a9950",badge: "#1a9950" },
     B: { bg: "#eef7e8", text: "#2a6e10", border: "#4aa830", badge: "#4aa830" },
     C: { bg: "#f5fbe8", text: "#4a6e10", border: "#8ac830", badge: "#8ac830" },
     D: { bg: "#fefce8", text: "#6e5810", border: "#d4b030", badge: "#d4b030" },

@@ -27,6 +27,8 @@ function genFactures(kwh: number, montant: number): Facture[] {
   }));
 }
 
+
+
 const batimentBase: Batiment = {
   id: "bat-rgl", type: "residentiel", surfaceM2: 100, materiaux: "béton",
   isolation: "moyen", vitrage: "double",

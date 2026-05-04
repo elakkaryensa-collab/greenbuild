@@ -101,6 +101,8 @@ export default function PlanBudget() {
     );
   }
 
+
+  
  // Calcul du cumul pour chaque action
 // Calcul du cumul pour chaque action
 const actionsAvecCumul = actionsParDifficulte.map((a, i, arr) => {

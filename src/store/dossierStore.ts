@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 // src/store/dossierStore.ts
-// GreenBuild v3.0 — Store Zustand central (Étape 9 CDC)
+// GreenBuild  v3.0 — Store Zustand central (Étape 9 CDC)
 //
 // C'est le cerveau de l'application.
 // Il contient TOUT l'état du dossier et la fonction

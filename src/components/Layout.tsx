@@ -30,6 +30,8 @@ interface NavPortail {
   desc:  string
 }
 
+
+
 // ── Données navigation ───────────────────────────────────────
 const NAV_PORTAILS: NavPortail[] = [
   { path: "/proprietaire", label: "SoumissionForm", icon: "🏠", desc: "Soumettre un audit"   },

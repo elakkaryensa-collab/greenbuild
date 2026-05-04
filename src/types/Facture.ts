@@ -55,7 +55,7 @@ export interface Facture {
 }
 
 /**
- * Résultat de l'analyse des 12 factures (Phase 4 scoreService.ts)
+ * Résultat  de l'analyse des 12 factures (Phase 4 scoreService.ts)
  */
 export interface AnalyseFactures {
   /** Moyenne mensuelle de consommation sur 12 mois (kWh/mois) */

@@ -54,7 +54,7 @@ export interface PlanBudget {
   /** Écart à combler = factureActuelle − budgetCible (en DH) */
   ecartDH: number;
 
-  /** Liste des actions recommandées, ordonnées du plus impactant au moins */
+  /** Liste  des actions recommandées, ordonnées du plus impactant au moins */
   actions: ActionBudget[];
 
   /** Somme totale des économies générées par toutes les actions en DH/mois */

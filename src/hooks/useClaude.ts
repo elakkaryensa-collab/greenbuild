@@ -3,7 +3,7 @@
 // GreenBuild v3.0 — Hook Claude API + streaming (Étape 10)
 //
 // Utilise TanStack Query v5 pour le cache et la gestion
-// des états loading/error/data.
+// des états loading/error/data....
 // ─────────────────────────────────────────────────────────────
 
 import { useState, useCallback }       from "react";

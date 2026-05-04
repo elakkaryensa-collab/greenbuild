@@ -43,7 +43,7 @@ export interface ResultatStreaming {
 /**
  * Construit le prompt structuré envoyé à Claude.
  * Contient tous les résultats calculés en JSON.
- * Claude rédige le texte — il ne recalcule rien.
+ * Claude rédige le texte — il ne recalcule rien....
  */
 function construirePrompt(params: ParametresRapport): string {
   const {

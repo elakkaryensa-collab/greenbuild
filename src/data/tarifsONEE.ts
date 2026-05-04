@@ -2,7 +2,7 @@
 // GreenBuild v3.0 — Tarifs ONEE (Office National de l'Électricité)
 
 export const TARIFS_ONEE = {
-  /** Tarif basse tranche (0–100 kWh/mois) en DH/kWh */
+  /** Tarif basse tranche (0–100 kWh/mois) en DH/kWh ....*/
   trancheBasse:   0.9010,
   /** Tarif tranche moyenne (101–200 kWh/mois) en DH/kWh */
   trancheMoyenne: 1.0573,

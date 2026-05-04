@@ -116,7 +116,7 @@ export const COULEURS_CLASSES: Record<ClasseEnergetique, { bg: string; text: str
   G: { bg: "bg-purple-100", text: "text-purple-900", border: "border-purple-400" },
 };
 
-/** Labels français pour les classes */
+/** Labels français pour les classes  */
 export const LABELS_CLASSES: Record<ClasseEnergetique, string> = {
   A: "Très performant",
   B: "Performant",

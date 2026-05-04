@@ -33,6 +33,7 @@ export interface ResultatROI {
 // Fonctions de calcul
 // ══════════════════════════════════════════════════════════════
 
+
 /**
  * Calcule le ROI en années.
  * Formule CDC : ROI = coûtTravaux / économiesAnnuellesDH

@@ -8,7 +8,7 @@ import type { Entreprise } from "../types/Entreprise";
 
 export const ENTREPRISES_PARTENAIRES: Entreprise[] = [
 
-  // ── ISOLATION (5 entreprises) ─────────────────────────────
+  // ── ISOLATION (5 entreprisenvmmfs) ─────────────────────────────
 
   {
     id: "ent-iso-01",

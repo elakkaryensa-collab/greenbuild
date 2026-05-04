@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // ── Layout ───────────────────────────────────────────────────
 import Layout                  from "./components/Layout";
 
-// ── Pages ────────────────────────────────────────────────────
+// ── Pages  ────────────────────────────────────────────────────
 import LandingPage             from "./pages/Landing/LandingPage";
 import SoumissionForm          from "./pages/Proprietaire/SoumissionForm";
 import Dashboard               from "./pages/Proprietaire/Dashboard";

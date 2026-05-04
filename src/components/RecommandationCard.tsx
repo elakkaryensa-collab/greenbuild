@@ -17,6 +17,8 @@ interface RecommandationCardProps {
   index:          number;
 }
 
+
+
 export default function RecommandationCard({
   recommandation: r,
   entreprises,

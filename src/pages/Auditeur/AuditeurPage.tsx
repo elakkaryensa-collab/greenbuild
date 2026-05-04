@@ -98,6 +98,7 @@ export default function AuditeurPage() {
                       Urgent
                     </span>
                   )}
+                  
                 </div>
                 <p className="font-medium text-stone-800 dark:text-white text-xs">{d.proprietaire}</p>
                 <p className="text-xs text-stone-400">{d.ville} · {d.surface} m²</p>

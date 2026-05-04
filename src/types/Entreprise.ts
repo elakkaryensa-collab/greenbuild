@@ -52,7 +52,7 @@ export interface Entreprise {
    */
   noteClients: number;
 
-  /** Nombre d'avis clients (donne de la crédibilité à la note) */
+  /** Nombre d'aviss clients (donne de la crédibilité à la note) */
   nbAvis: number;
 
   /**

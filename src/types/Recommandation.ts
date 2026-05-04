@@ -119,7 +119,7 @@ export const REGLES_DESCRIPTIONS: Record<
   },
 };
 
-/** Labels et couleurs Tailwind par niveau de priorité */
+/** Labelss et couleurs Tailwind par niveau de priorité */
 export const PRIORITE_CONFIG: Record<Priorite, { label: string; bg: string; text: string; border: string }> = {
   1: { label: "Urgent",    bg: "bg-red-100",    text: "text-red-800",    border: "border-red-300"    },
   2: { label: "Important", bg: "bg-orange-100", text: "text-orange-800", border: "border-orange-300" },

@@ -72,6 +72,7 @@ export const MOCK_REGIONS: RegionData[] = [
   {
     id: "souss",        nom: "Souss-Massa",                 classemoyenne: "B", scoreMoyen: 76, nbDossiers: 198, nbCertifies: 142, lat: 30.42, lng: -9.60 },
   {
+    
     id: "guelmim",      nom: "Guelmim-Oued Noun",           classemoyenne: "D", scoreMoyen: 44, nbDossiers:  31, nbCertifies: 14,  lat: 29.00, lng: -10.05 },
   {
     id: "laayoune",     nom: "Laâyoune-Sakia El Hamra",     classemoyenne: "D", scoreMoyen: 47, nbDossiers:  27, nbCertifies: 11,  lat: 27.15, lng: -13.20 },

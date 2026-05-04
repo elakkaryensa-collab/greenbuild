@@ -46,7 +46,7 @@ export function useScore() {
   }, [calculerTout, navigate]);
 
   return {
-    // Actions
+    // Actions ,,,,
     soumettre,
 
     // Statuts

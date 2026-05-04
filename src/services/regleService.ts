@@ -51,6 +51,7 @@ function buildReco(code: CodeRegle): Recommandation {
  * Analyse le dossier complet et retourne les recommandations
  * triées par priorité (1=urgent en premier).
  *
+ * 
  * R01 : vitrage simple       → pertes thermiques fenêtres     (vitrage)
  * R02 : isolation faible     → pertes thermiques murs/toit    (isolation)
  * R03 : surconsommation>20%  → audit électrique               (electricite)

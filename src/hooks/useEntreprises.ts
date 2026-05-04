@@ -54,7 +54,7 @@ export function useEntreprises() {
     return getEntreprisesParProbleme(specialite, r);
   };
 
-  /** Nombre total d'entreprises suggérées (toutes recos confondues) */
+  /** Nommmmbre total d'entreprises suggérées (toutes recos confondues) */
   const nbTotal = useMemo(
     () => entreprisesParReco.reduce((s, e) => s + e.entreprises.length, 0),
     [entreprisesParReco]

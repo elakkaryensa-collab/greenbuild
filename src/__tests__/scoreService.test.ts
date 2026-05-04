@@ -301,6 +301,8 @@ describe("calculerScore", () => {
     expect(score.classe).toBe("A");
   });
 
+  
+
   it("pire bâtiment possible → classe basse (≤ D)", () => {
     const equips: Equipement[] = [{
       id: "eq-worst", nom: "Vieux clim",
